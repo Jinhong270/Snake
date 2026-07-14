@@ -44,16 +44,17 @@ SnakeGame.setupUI = function() {
     });
 
     var resizeCanvas = function() {
-        var maxW = SnakeGame.canvasWrapper.clientWidth;
-        var reservedVSpace = window.innerHeight <= 520 ? 80 : 120;
-        var maxH = Math.max(window.innerHeight - reservedVSpace, 200);
+        var maxW = SnakeGame.canvasWrapper.clientWidth || window.innerWidth - 40;
+        var reserved = window.innerHeight <= 560 ? 70 : 130;
+        var maxH = Math.max(window.innerHeight - reserved, 180);
         var displaySize = Math.min(maxW, maxH, SnakeGame.SIZE);
         SnakeGame.canvas.style.width = displaySize + 'px';
         SnakeGame.canvas.style.height = displaySize + 'px';
     };
+
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('orientationchange', function() {
-        setTimeout(resizeCanvas, 150);
+        setTimeout(resizeCanvas, 120);
     });
     resizeCanvas();
 };

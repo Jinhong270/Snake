@@ -29,11 +29,11 @@ SnakeGame.setupInput();
 SnakeGame.setupUI();
 
 SnakeGame.loadBest();
-SnakeGame.bgColor = '#000000';
-SnakeGame.canvas.style.backgroundColor = '#000000';
+SnakeGame.bgColor = '#0a0a0f';
+SnakeGame.canvas.style.backgroundColor = '#0a0a0f';
 SnakeGame.colorSwatches.forEach(function(s) {
     s.classList.remove('active');
-    if (s.dataset.color === '#000000') s.classList.add('active');
+    if (s.dataset.color === '#0a0a0f') s.classList.add('active');
 });
 SnakeGame.setSpeedMode(130);
 SnakeGame.setGameState('idle');

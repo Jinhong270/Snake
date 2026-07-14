@@ -3,27 +3,28 @@
         display: grid;
     }
     .toggle-dpad-btn {
-        display: none;
+        display: none !important;
+    }
+    .hint {
+        font-size: 0.64rem;
     }
 }
 
 @media (pointer: fine) and (hover: hover) {
     .game-container {
         display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto auto auto auto auto;
-        gap: 20px 24px;
-        max-width: 820px;
-        padding: 24px 28px 20px;
+        grid-template-columns: auto minmax(220px, 280px);
+        grid-template-rows: auto auto 1fr auto auto auto;
+        gap: 18px 28px;
+        max-width: 860px;
+        padding: 28px 30px 24px;
         align-items: start;
-        justify-items: start;
+        justify-items: stretch;
     }
 
-    h1 {
+    .header {
         grid-column: 1 / -1;
         grid-row: 1;
-        justify-self: center;
-        font-size: 2.2rem;
     }
 
     .canvas-wrapper {
@@ -37,124 +38,170 @@
         grid-column: 2;
         grid-row: 2;
         justify-content: flex-start;
+        width: 100%;
+    }
+
+    .score-box {
+        max-width: none;
+    }
+
+    .controls-panel {
+        grid-column: 2;
+        grid-row: 3 / 7;
+        align-items: stretch;
+        gap: 16px;
+        height: 100%;
     }
 
     .mode-selector {
-        grid-column: 2;
-        grid-row: 3;
         justify-content: flex-start;
     }
 
     .color-section {
-        grid-column: 2;
-        grid-row: 4;
         justify-content: flex-start;
     }
 
     .btn-row {
-        grid-column: 2;
-        grid-row: 5;
         justify-content: flex-start;
     }
 
     .dpad {
-        grid-column: 2;
-        grid-row: 6;
-        justify-self: start;
         display: none;
+        justify-self: start;
     }
 
     .hint {
-        grid-column: 2;
-        grid-row: 7;
         text-align: left;
-        font-size: 0.75rem;
-        margin-top: 4px;
+        font-size: 0.72rem;
+        max-width: none;
+        margin-top: auto;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+        padding-top: max(8px, env(safe-area-inset-top));
+    }
+
     .game-container {
-        padding: 10px 8px;
-        gap: 10px;
-        border-radius: 14px;
+        padding: 14px 12px 12px;
+        gap: 12px;
+        border-radius: 18px;
+        max-width: 100%;
     }
+
     h1 {
-        font-size: 1.4rem;
-        letter-spacing: 2px;
+        font-size: 1.45rem;
+        letter-spacing: 0.1em;
     }
+
+    .subtitle {
+        font-size: 0.6rem;
+    }
+
+    .score-box {
+        padding: 8px 10px;
+    }
+
+    .score-value {
+        font-size: 1.3rem;
+    }
+
     .mode-btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+        padding: 8px 8px;
+        font-size: 0.78rem;
+        min-width: 56px;
     }
+
     .restart-btn,
     .pause-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+        padding: 11px 18px;
+        font-size: 0.88rem;
     }
-    .dpad-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 1.2rem;
+
+    .swatch {
+        width: 24px;
+        height: 24px;
     }
+
     .dpad {
-        grid-template-columns: 44px 44px 44px;
-        grid-template-rows: 44px 44px 44px;
+        grid-template-columns: 48px 48px 48px;
+        grid-template-rows: 48px 48px 48px;
         gap: 4px;
     }
-    .score-box {
-        padding: 4px 10px;
-        min-width: 60px;
+
+    .dpad-btn {
+        font-size: 1.15rem;
+        border-radius: 12px;
     }
+
     .hint {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
     }
 }
 
-@media (max-height: 520px) and (orientation: landscape) {
+@media (max-width: 360px) {
+    .mode-btn {
+        font-size: 0.72rem;
+        padding: 7px 6px;
+    }
+    .score-label {
+        font-size: 0.58rem;
+    }
+    .score-value {
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
     body {
-        padding: 3px;
+        padding: 4px;
         align-items: flex-start;
-        min-height: 100vh;
-        min-height: 100dvh;
     }
 
     .game-container {
         display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto auto auto auto auto auto;
-        gap: 3px 10px;
+        grid-template-rows: auto auto auto auto auto auto;
+        gap: 6px 14px;
         max-width: 100%;
-        padding: 6px 10px;
-        border-radius: 12px;
+        padding: 8px 12px;
+        border-radius: 14px;
+    }
+
+    .header {
+        grid-column: 1 / -1;
+        grid-row: 1;
     }
 
     h1 {
-        grid-column: 1 / -1;
-        grid-row: 1;
-        font-size: 1rem;
-        letter-spacing: 2px;
-        margin: 0;
+        font-size: 1.05rem;
+        letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+        display: none;
     }
 
     .canvas-wrapper {
         grid-column: 1;
-        grid-row: 2 / 8;
+        grid-row: 2 / 7;
         align-self: start;
-        box-shadow: 0 0 0 2px var(--border);
-        border-radius: 6px;
+        box-shadow: 0 0 0 1px var(--border-strong), 0 4px 12px rgba(0,0,0,0.4);
+        border-radius: 8px;
     }
 
     .score-row {
         grid-column: 2;
         grid-row: 2;
-        gap: 5px;
+        gap: 6px;
     }
 
     .score-box {
-        padding: 2px 7px;
-        min-width: 46px;
-        border-radius: 7px;
+        padding: 4px 8px;
+        border-radius: 8px;
     }
 
     .score-label {
@@ -162,26 +209,28 @@
     }
 
     .score-value {
-        font-size: 0.95rem;
+        font-size: 1rem;
+    }
+
+    .controls-panel {
+        grid-column: 2;
+        grid-row: 3 / 7;
+        gap: 6px;
+        align-items: stretch;
     }
 
     .mode-selector {
-        grid-column: 2;
-        grid-row: 3;
         gap: 4px;
     }
 
     .mode-btn {
-        padding: 3px 9px;
+        padding: 5px 8px;
         font-size: 0.68rem;
-        border-radius: 14px;
-        letter-spacing: 0;
+        border-radius: 12px;
     }
 
     .color-section {
-        grid-column: 2;
-        grid-row: 4;
-        gap: 5px;
+        gap: 6px;
     }
 
     .color-label {
@@ -189,85 +238,96 @@
     }
 
     .swatch {
-        width: 20px;
-        height: 20px;
-    }
-
-    .color-swatches {
-        gap: 5px;
+        width: 18px;
+        height: 18px;
     }
 
     .btn-row {
-        grid-column: 2;
-        grid-row: 5;
         gap: 5px;
     }
 
     .restart-btn,
     .pause-btn {
-        padding: 5px 12px;
-        font-size: 0.75rem;
-        border-radius: 18px;
-        letter-spacing: 1px;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+        border-radius: 14px;
     }
 
     .dpad {
-        grid-column: 2;
-        grid-row: 6;
-        grid-template-columns: 34px 34px 34px;
-        grid-template-rows: 34px 34px 34px;
-        gap: 2px;
-        justify-self: start;
+        grid-template-columns: 36px 36px 36px;
+        grid-template-rows: 36px 36px 36px;
+        gap: 3px;
+        display: grid;
     }
 
     .dpad-btn {
         font-size: 0.9rem;
-        border-radius: 7px;
-        width: 34px;
-        height: 34px;
+        border-radius: 8px;
     }
 
     .hint {
-        grid-column: 1 / -1;
-        grid-row: 7;
         font-size: 0.55rem;
-        margin-top: 1px;
+        grid-column: 1 / -1;
     }
 }
 
-@media (min-height: 521px) and (max-height: 700px) and (orientation: landscape) and (pointer: coarse) {
+@media (min-height: 561px) and (max-height: 740px) and (orientation: landscape) and (pointer: coarse) {
     .game-container {
         display: grid;
         grid-template-columns: auto 1fr;
         grid-template-rows: auto auto auto auto auto auto;
-        gap: 5px 16px;
+        gap: 8px 16px;
         max-width: 100%;
-        padding: 8px 14px;
+        padding: 12px 16px;
+    }
+
+    .header {
+        grid-column: 1 / -1;
     }
 
     h1 {
-        grid-column: 1 / -1;
-        grid-row: 1;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
     }
 
     .canvas-wrapper {
         grid-column: 1;
         grid-row: 2 / 7;
-        align-self: start;
     }
 
-    .score-row { grid-column: 2; grid-row: 2; gap: 8px; }
-    .mode-selector { grid-column: 2; grid-row: 3; }
-    .color-section { grid-column: 2; grid-row: 4; }
-    .btn-row { grid-column: 2; grid-row: 5; }
-    .dpad {
+    .controls-panel {
         grid-column: 2;
-        grid-row: 6;
-        grid-template-columns: 40px 40px 40px;
-        grid-template-rows: 40px 40px 40px;
-        gap: 3px;
+        grid-row: 2 / 7;
+        gap: 10px;
     }
-    .dpad-btn { font-size: 1.1rem; border-radius: 9px; }
-    .hint { grid-column: 1 / -1; grid-row: 7; }
+
+    .dpad {
+        display: grid;
+        grid-template-columns: 42px 42px 42px;
+        grid-template-rows: 42px 42px 42px;
+    }
+
+    .dpad-btn {
+        font-size: 1.05rem;
+        border-radius: 10px;
+    }
+}
+
+@media (min-width: 900px) and (pointer: fine) {
+    .game-container {
+        max-width: 920px;
+        gap: 22px 36px;
+        padding: 32px 36px 28px;
+    }
+
+    .canvas-wrapper {
+        max-width: 560px;
+    }
+}
+
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
 }

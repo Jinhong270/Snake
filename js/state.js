@@ -7,7 +7,7 @@ SnakeGame.dir = { x: 1, y: 0 };
 SnakeGame.nextDir = { x: 1, y: 0 };
 SnakeGame.score = 0;
 SnakeGame.bestScore = 0;
-SnakeGame.bgColor = '#000000';
+SnakeGame.bgColor = '#0a0a0f';
 SnakeGame.moveInterval = 130;
 SnakeGame.lastMoveTime = 0;
 SnakeGame.particles = [];
@@ -15,9 +15,9 @@ SnakeGame.pendingSpeed = null;
 SnakeGame.prevStateBeforeConfirm = 'idle';
 
 SnakeGame.setGameState = function(newState) {
-    var prevState = SnakeGame.gameState;
+    var prev = SnakeGame.gameState;
     SnakeGame.gameState = newState;
-    if (newState === 'playing' && (prevState === 'paused' || prevState === 'idle' || prevState === 'notify')) {
+    if (newState === 'playing' && (prev === 'paused' || prev === 'idle' || prev === 'notify')) {
         SnakeGame.lastMoveTime = performance.now();
     }
     SnakeGame.updateUI();
@@ -64,17 +64,19 @@ SnakeGame.spawnFood = function() {
 };
 
 SnakeGame.addParticles = function(x, y) {
-    for (var i = 0; i < 8; i++) {
-        var angle = (Math.PI * 2 / 8) * i + Math.random() * 0.5;
-        var spd = 1.5 + Math.random() * 3;
+    var cx = x * SnakeGame.GRID + SnakeGame.GRID / 2;
+    var cy = y * SnakeGame.GRID + SnakeGame.GRID / 2;
+    for (var i = 0; i < 10; i++) {
+        var angle = (Math.PI * 2 / 10) * i + Math.random() * 0.4;
+        var spd = 1.8 + Math.random() * 3.2;
         SnakeGame.particles.push({
-            x: x * SnakeGame.GRID + SnakeGame.GRID / 2,
-            y: y * SnakeGame.GRID + SnakeGame.GRID / 2,
+            x: cx,
+            y: cy,
             vx: Math.cos(angle) * spd,
             vy: Math.sin(angle) * spd,
             life: 1,
-            decay: 0.02 + Math.random() * 0.04,
-            size: 2.5 + Math.random() * 2.5
+            decay: 0.018 + Math.random() * 0.035,
+            size: 2.2 + Math.random() * 2.8
         });
     }
 };
@@ -84,6 +86,8 @@ SnakeGame.updateParticles = function() {
         var p = SnakeGame.particles[i];
         p.x += p.vx;
         p.y += p.vy;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
         p.life -= p.decay;
         if (p.life <= 0) SnakeGame.particles.splice(i, 1);
     }
@@ -91,17 +95,21 @@ SnakeGame.updateParticles = function() {
 
 SnakeGame.update = function() {
     if (SnakeGame.gameState !== 'playing') return;
-    SnakeGame.dir = { ...SnakeGame.nextDir };
+    SnakeGame.dir = { x: SnakeGame.nextDir.x, y: SnakeGame.nextDir.y };
     var head = SnakeGame.snake[0];
     var newHead = { x: head.x + SnakeGame.dir.x, y: head.y + SnakeGame.dir.y };
+
     if (newHead.x < 0 || newHead.x >= SnakeGame.COLS || newHead.y < 0 || newHead.y >= SnakeGame.ROWS) {
         SnakeGame.endGame();
         return;
     }
-    if (SnakeGame.snake.some(function(seg) { return seg.x === newHead.x && seg.y === newHead.y; })) {
-        SnakeGame.endGame();
-        return;
+    for (var i = 0; i < SnakeGame.snake.length; i++) {
+        if (SnakeGame.snake[i].x === newHead.x && SnakeGame.snake[i].y === newHead.y) {
+            SnakeGame.endGame();
+            return;
+        }
     }
+
     SnakeGame.snake.unshift(newHead);
     if (SnakeGame.food && newHead.x === SnakeGame.food.x && newHead.y === SnakeGame.food.y) {
         SnakeGame.score += 10;
@@ -111,6 +119,7 @@ SnakeGame.update = function() {
     } else {
         SnakeGame.snake.pop();
     }
+
     if (SnakeGame.snake.length >= SnakeGame.COLS * SnakeGame.ROWS) {
         SnakeGame.saveBest();
         SnakeGame.setGameState('gameover');
@@ -120,14 +129,18 @@ SnakeGame.update = function() {
 SnakeGame.endGame = function() {
     SnakeGame.setGameState('gameover');
     SnakeGame.saveBest();
-    if (SnakeGame.snake.length) SnakeGame.addParticles(SnakeGame.snake[0].x, SnakeGame.snake[0].y);
+    if (SnakeGame.snake.length) {
+        SnakeGame.addParticles(SnakeGame.snake[0].x, SnakeGame.snake[0].y);
+    }
 };
 
 SnakeGame.saveBest = function() {
     if (SnakeGame.score > 0 && SnakeGame.score > SnakeGame.bestScore) {
         SnakeGame.bestScore = SnakeGame.score;
         SnakeGame.bestScoreSpan.textContent = SnakeGame.bestScore;
-        try { localStorage.setItem('snake_best_' + SnakeGame.moveInterval, SnakeGame.bestScore); } catch (e) {}
+        try {
+            localStorage.setItem('snake_best_' + SnakeGame.moveInterval, String(SnakeGame.bestScore));
+        } catch (e) {}
     }
 };
 
@@ -135,7 +148,9 @@ SnakeGame.loadBest = function() {
     SnakeGame.bestScore = 0;
     try {
         var v = localStorage.getItem('snake_best_' + SnakeGame.moveInterval);
-        if (v && !isNaN(parseInt(v, 10))) SnakeGame.bestScore = parseInt(v, 10);
+        if (v && !isNaN(parseInt(v, 10))) {
+            SnakeGame.bestScore = parseInt(v, 10);
+        }
     } catch (e) {}
     SnakeGame.bestScoreSpan.textContent = SnakeGame.bestScore;
 };
@@ -204,13 +219,13 @@ SnakeGame.updateUI = function() {
         case 'playing':
             SnakeGame.restartBtn.textContent = '重新开始';
             SnakeGame.pauseBtn.style.display = 'inline-block';
-            SnakeGame.pauseBtn.textContent = '⏸ 暂停';
+            SnakeGame.pauseBtn.textContent = '暂停';
             SnakeGame.pauseBtn.classList.remove('resume');
             break;
         case 'paused':
             SnakeGame.restartBtn.textContent = '重新开始';
             SnakeGame.pauseBtn.style.display = 'inline-block';
-            SnakeGame.pauseBtn.textContent = '▶ 继续';
+            SnakeGame.pauseBtn.textContent = '继续';
             SnakeGame.pauseBtn.classList.add('resume');
             break;
         case 'confirming':
