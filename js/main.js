@@ -1,43 +1,33 @@
-var SnakeGame = SnakeGame || {};
-
 var animationId = null;
-
-function loop(ts) {
-    if (SnakeGame.gameState === 'playing') {
-        if (ts - SnakeGame.lastMoveTime >= SnakeGame.moveInterval) {
-            SnakeGame.update();
-            SnakeGame.lastMoveTime = ts;
-        }
-        SnakeGame.updateParticles();
+function frame(ts){
+  if(Game.state === 'playing'){
+    if(ts - Game.lastMoveTime >= Game.moveInterval){
+      step();
+      Game.lastMoveTime = ts;
     }
-
-    if (SnakeGame.gameState === 'gameover' && SnakeGame.particles.length > 0) {
-        SnakeGame.updateParticles();
-    }
-
-    SnakeGame.draw();
-    animationId = requestAnimationFrame(loop);
+  }
+  if(Game.state === 'playing' || Game.state === 'gameover'){
+    if(Game.particles.length) updateParticles();
+  }
+  draw(ts);
+  animationId = requestAnimationFrame(frame);
 }
 
-function startLoop() {
-    if (animationId) cancelAnimationFrame(animationId);
-    SnakeGame.lastMoveTime = performance.now();
-    animationId = requestAnimationFrame(loop);
+function init(){
+  loadBestScores();
+  setSpeed(130);
+  initDpadVisibility();
+  setupHint();
+  setupResize();
+  setupModeButtons();
+  setupSwatches();
+  setupButtons();
+  setupDpad();
+  setupPointerControls();
+  setupKeyboard();
+  setGameState('idle');
+  resizeCanvas();
+  animationId = requestAnimationFrame(frame);
 }
 
-SnakeGame.setupInput();
-SnakeGame.setupUI();
-
-SnakeGame.loadBest();
-SnakeGame.bgColor = '#0a0a0f';
-SnakeGame.canvas.style.backgroundColor = '#0a0a0f';
-SnakeGame.colorSwatches.forEach(function(s) {
-    s.classList.remove('active');
-    if (s.dataset.color === '#0a0a0f') s.classList.add('active');
-});
-SnakeGame.setSpeedMode(130);
-SnakeGame.setGameState('idle');
-
-setTimeout(function() {
-    startLoop();
-}, 0);
+init();
