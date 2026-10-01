@@ -25,18 +25,34 @@ Classic Snake, ready to play. Steer a snake around the map, eat food, grow longe
 | Action | Keys / method |
 |------|-------------|
 | Move | Arrow keys, or **W A S D** |
-| Start / pause / resume | **Space**, or click the board |
+| Start / pause / resume | **Space** or **Enter**, or click the board |
+| Pause | **Esc** |
+| Full screen | **F**, or the header full-screen button (when the browser supports it) |
 | Restart | Click the **Restart** button |
 
 ### Phone / touch
 
 | Action | Method |
 |------|------|
-| Move | **Swipe** on the board, or use the **virtual D-pad** at the bottom |
-| Start / pause / resume | **Tap** the board |
-| Show / hide D-pad | Use **Show D-pad / Hide D-pad** in the sidebar |
+| Move | **Swipe** on the board, or use the **virtual D-pad** |
+| Start / pause / resume | **Tap** the board, or tap the **center button** on the D-pad |
+| Show / hide D-pad | Click **Show D-pad / Hide D-pad** |
 
-> Tip: You cannot reverse in one move (for example you cannot go left while moving right), so you do not bite yourself by accident.
+A swipe before the round starts the game and immediately moves in that direction. Speed, background color, and the D-pad toggle are saved on this device. Switching to another app pauses the game. When the browser allows it, the screen stays awake during a round.
+
+> Tip: You cannot reverse in one move (for example you cannot go left while moving right), so you do not bite yourself by accident. A second direction is queued, so quick turns feel tighter.
+
+## Screen layout
+
+The page stays inside the visible area. The board stays square and fills as much of the remaining space as it can:
+
+- **Phone portrait**: board on top, D-pad under the board, speed and color at the bottom. On short screens the settings scroll so the board is never squeezed away.
+- **Phone landscape**: settings on the right. The D-pad usually sits to the left of the board, in reach of both hands.
+- **Tablet portrait**: settings split into two columns so the board keeps the height.
+- **Tablet landscape and desktop**: the board grows and stays centered, with settings fixed on the right.
+- **Ultrawide and large displays**: the whole page stays centered and the board keeps growing, up to about 1600 pixels.
+
+On odd window shapes (split screen, foldables, a very narrow browser), the D-pad moves under or beside the board, whichever side leaves a larger square.
 
 ## Speed modes
 
@@ -54,7 +70,7 @@ Each speed keeps **its own high score**. High scores stay on this device after a
 ## Extra features
 
 - **Pause**: take a breath, then go back for a higher score.
-- **Background**: the sidebar has several dark themes (classic black, deep blue, night green, and more).
+- **Background**: settings include several dark themes (classic black, deep blue, night green, and more).
 - **New record**: beat the high score for the current speed and the results screen shows **New record**.
 
 ## Start a game
