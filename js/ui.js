@@ -19,7 +19,7 @@ function setupModeButtons(){
   modeButtons.forEach(function(btn){
     btn.addEventListener('click', function(){
       if(Game.state === 'playing'){
-        showToast('游戏进行中无法切换速度');
+        showToast(t('toastSpeed'));
         return;
       }
       var speed = parseInt(btn.dataset.speed, 10);
@@ -43,7 +43,7 @@ function applyDpadVisible(showing, persist){
   appEl.classList.toggle('dpad-on', showing);
   stageEl.classList.toggle('with-dpad', showing);
   toggleDpadBtn.setAttribute('aria-pressed', showing ? 'true' : 'false');
-  toggleDpadBtn.setAttribute('aria-label', showing ? '隐藏方向键' : '显示方向键');
+  toggleDpadBtn.setAttribute('aria-label', showing ? t('hideDpad') : t('showDpad'));
   if(persist) saveSettings({dpad: showing});
   scheduleResize();
 }
@@ -80,13 +80,13 @@ function setupButtons(){
 function setupHint(){
   var canFull = fullscreenBtn && !fullscreenBtn.hidden;
   if(isTouchDevice){
-    hintEl.textContent = '滑动或方向键转向 · 点画面或方向键中间开始、暂停';
-    idleHintEl.textContent = '滑动就能转向';
-    pausedHintEl.textContent = '点画面或方向键中间继续';
+    hintEl.textContent = t('hintTouch');
+    idleHintEl.textContent = t('idleHintTouch');
+    pausedHintEl.textContent = t('pausedHintTouch');
   }else{
-    hintEl.textContent = '方向键 / WASD 移动 · 空格开始或暂停 · Esc 暂停' + (canFull ? ' · F 全屏' : '');
-    idleHintEl.textContent = '点击画面或按空格键开始';
-    pausedHintEl.textContent = '点击画面或按空格键继续';
+    hintEl.textContent = canFull ? t('hintDesktopFull') : t('hintDesktop');
+    idleHintEl.textContent = t('idleHintDesktop');
+    pausedHintEl.textContent = t('pausedHintDesktop');
   }
 }
 
@@ -114,7 +114,7 @@ function toggleFullscreen(){
 function syncFullscreenIcon(){
   var on = !!(document.fullscreenElement || document.webkitFullscreenElement);
   fullscreenBtn.classList.toggle('is-active', on);
-  fullscreenBtn.setAttribute('aria-label', on ? '退出全屏' : '全屏');
+  fullscreenBtn.setAttribute('aria-label', on ? t('exitFullscreen') : t('fullscreen'));
 }
 
 function setupFullscreen(){

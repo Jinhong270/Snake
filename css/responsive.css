@@ -115,7 +115,7 @@
     justify-content:center;
     gap:clamp(10px, 1.6vh, 16px);
   }
-  .hint-text{text-align:left;}
+  .hint-text{text-align:start;}
   .swatch{width:clamp(26px, 2vw, 34px);height:clamp(26px, 2vw, 34px);}
   .dpad{--dpad-size:clamp(48px, 6vmin, 64px);}
 }

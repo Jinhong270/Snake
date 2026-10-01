@@ -46,7 +46,7 @@
   align-items:center;
   gap:clamp(6px, 1.5vw, 10px);
   flex:0 0 auto;
-  margin-left:auto;
+  margin-inline-start:auto;
 }
 .score-panel{display:flex;gap:clamp(6px, 1.4vw, 10px);}
 .score-chip{
@@ -59,10 +59,10 @@
 }
 .score-chip-label{
   font-size:clamp(0.55rem, 1.6vw, 0.68rem);
-  letter-spacing:0.12em;
+  letter-spacing:0.06em;
   color:var(--text-muted);
   display:block;
-  white-space:nowrap;
+  line-height:1.2;
 }
 .score-chip-value{
   font-family:var(--font-mono);
@@ -103,6 +103,7 @@
 }
 .stage.with-dpad.dpad-side{flex-direction:row;}
 .stage.with-dpad.dpad-side .dpad{order:-1;}
+html[dir="rtl"] .stage.with-dpad.dpad-side{flex-direction:row-reverse;}
 .board-slot{
   flex:0 0 auto;
   display:flex;

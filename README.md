@@ -11,6 +11,8 @@ pinned: false
 
 Classic Snake, ready to play. Steer a snake around the map, eat food, grow longer, and stay off the walls and your own tail.
 
+The interface follows the browser language. There is no language picker. Simplified Chinese, Taiwan, Hong Kong, and Macau each have their own wording. Major languages such as English, Japanese, German, French, and Spanish have their own locale packs. If the browser language is not in the list, the UI uses English (United States).
+
 ## How to play
 
 - The snake moves forward on its own. You only steer.
