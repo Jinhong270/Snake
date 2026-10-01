@@ -318,19 +318,19 @@ function renderState(state){
   overlayGameOver.classList.toggle('visible', state === 'gameover');
   pauseBtn.disabled = state === 'idle' || state === 'gameover';
   pauseBtn.classList.toggle('is-resume', state === 'paused');
-  pauseBtn.querySelector('.btn-label').textContent = state === 'paused' ? '继续' : '暂停';
-  restartBtn.textContent = state === 'idle' ? '开始游戏' : '重新开始';
+  pauseBtn.querySelector('.btn-label').textContent = state === 'paused' ? t('resume') : t('pause');
+  restartBtn.textContent = state === 'idle' ? t('start') : t('restart');
   dpadEl.classList.toggle('is-live', state === 'playing');
-  var centerLabel = '开始';
-  if(state === 'playing') centerLabel = '暂停';
-  else if(state === 'paused') centerLabel = '继续';
-  else if(state === 'gameover') centerLabel = '再来一局';
+  var centerLabel = t('dpadStart');
+  if(state === 'playing') centerLabel = t('dpadPause');
+  else if(state === 'paused') centerLabel = t('dpadResume');
+  else if(state === 'gameover') centerLabel = t('dpadRestart');
   dpadCenterBtn.setAttribute('aria-label', centerLabel);
   modeButtons.forEach(function(btn){
     var locked = state === 'playing';
     btn.classList.toggle('is-locked', locked);
     btn.setAttribute('aria-disabled', locked ? 'true' : 'false');
   });
-  if(state === 'playing' || state === 'paused') document.title = Game.score + ' · 贪吃蛇';
-  else document.title = '贪吃蛇 · Jinhong270';
+  if(state === 'playing' || state === 'paused') document.title = t('docTitleScore').replace('{score}', String(Game.score));
+  else document.title = t('docTitle');
 }

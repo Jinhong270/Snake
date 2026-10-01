@@ -14,7 +14,7 @@
   --radius-pill:999px;
   --shadow-deep:0 16px 40px rgba(0,0,0,0.5);
   --layout-max:1480px;
-  --font-cjk:"Noto Sans SC","PingFang SC","HarmonyOS Sans","Microsoft YaHei",sans-serif;
+  --font-ui:"Noto Sans","PingFang SC","PingFang TC","PingFang HK","Hiragino Sans","Hiragino Sans GB","Microsoft YaHei","Microsoft JhengHei","Noto Sans Arabic","Noto Sans Hebrew","Noto Sans Devanagari","Noto Sans Thai",sans-serif;
   --font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
   color-scheme:dark;
 }
@@ -30,7 +30,7 @@ body{
   inset:0;
   width:100%;
   color:var(--text-primary);
-  font-family:var(--font-cjk);
+  font-family:var(--font-ui);
   touch-action:manipulation;
   -webkit-user-select:none;
   user-select:none;
